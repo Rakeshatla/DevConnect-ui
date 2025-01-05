@@ -1,24 +1,29 @@
 // import React from 'react'
 import { useState } from "react"
 import axios from "axios"
+import { useDispatch } from "react-redux"
+import { addUser } from "../utils/userSlice"
 
 const Login = () => {
     const [email, setEmail] = useState('abcd@gmail.com')
     const [password, setPassword] = useState('Rakesh@123')
+    const dispatch = useDispatch();
     const handleLogin = async () => {
         try {
-            await axios.post("http://localhost:5000/login", { email, password }, { withCredentials: true })
+            const res = await axios.post("http://localhost:5000/login", { email, password }, { withCredentials: true })
+            // console.log(res)
+            dispatch(addUser(res.data))
         } catch (err) {
             console.error(err)
         }
     }
     return (
-        <div className="flex justify-center">
-            <div className="card bg-base-200 w-96 shadow-xl  flex justify-center my-9">
+        <div className="flex justify-center ">
+            <div className="card bg-base-200 w-96  shadow-xl  flex justify-center my-9">
 
                 <div className="card-body items-center text-center ">
 
-                    <label className="input input-bordered flex items-center gap-2">
+                    <label className="input input-bordered flex items-center gap-2 mt-4 ">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -34,7 +39,7 @@ const Login = () => {
                         }} />
                     </label>
 
-                    <label className="input input-bordered flex items-center gap-2">
+                    <label className="input input-bordered flex items-center gap-2 mt-4">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -45,12 +50,12 @@ const Login = () => {
                                 d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                                 clipRule="evenodd" />
                         </svg>
-                        <input type="password" className="grow" placeholder="password" value={password}
+                        <input type="password" className="grow " placeholder="password" value={password}
                             onChange={(e) => {
                                 setPassword(e.target.value)
                             }} />
                     </label>
-                    <div className="card-actions">
+                    <div className="card-actions mt-5">
                         <button className="btn btn-primary" onClick={handleLogin}>Login</button>
                     </div>
                 </div>

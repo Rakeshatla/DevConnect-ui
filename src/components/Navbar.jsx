@@ -1,6 +1,10 @@
 // import React from 'react'
 
+import { useSelector } from "react-redux"
+
+
 const Navbar = () => {
+    const user = useSelector(store => store.user)
     return (
         <div>
             <div className="navbar bg-neutral">
@@ -8,10 +12,9 @@ const Navbar = () => {
                     <a className="btn btn-warning text-xl">daisyUI</a>
                 </div>
                 <div className="flex-none gap-2">
-                    <div className="form-control">
-                        <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-                    </div>
-                    <div className="dropdown dropdown-end">
+
+                    {user && <div className="text-info p-3 align-middle"><p>Welcome,{user.firstName}</p></div>}
+                    {user && <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-20 rounded-full mr-0 m-0">
                                 <img
@@ -31,7 +34,7 @@ const Navbar = () => {
                             <li><a>Settings</a></li>
                             <li><a>Logout</a></li>
                         </ul>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>
