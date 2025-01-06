@@ -6,12 +6,17 @@ import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 // import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Feed from './components/Feed.jsx'
 
 
 const AppLayout = createBrowserRouter([{
   path: "/",
   element: <App />,
   children: [{
+    path: "/feed",
+    element: <Feed />
+  }
+    , {
     path: "/login",
     element: <Login />,
   }, {

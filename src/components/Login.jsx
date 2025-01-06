@@ -3,18 +3,24 @@ import { useState } from "react"
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { addUser } from "../utils/userSlice"
+import { BASE_URL } from "../utils/const"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
-    const [email, setEmail] = useState('abcd@gmail.com')
-    const [password, setPassword] = useState('Rakesh@123')
+    const [email, setEmail] = useState('mahesh@gmail.com')
+    const [password, setPassword] = useState('Abcd@123')
+    const [error, setError] = useState('')
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleLogin = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/login", { email, password }, { withCredentials: true })
+            const res = await axios.post(BASE_URL + "/login", { email, password }, { withCredentials: true })
             // console.log(res)
             dispatch(addUser(res.data))
+            navigate("/feed")
         } catch (err) {
             console.error(err)
+            setError(err)
         }
     }
     return (
@@ -55,6 +61,7 @@ const Login = () => {
                                 setPassword(e.target.value)
                             }} />
                     </label>
+                    <p className="text-red-500">{error}</p>
                     <div className="card-actions mt-5">
                         <button className="btn btn-primary" onClick={handleLogin}>Login</button>
                     </div>
