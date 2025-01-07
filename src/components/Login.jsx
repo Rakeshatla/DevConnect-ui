@@ -14,6 +14,7 @@ const Login = () => {
     const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [toast, setToast] = useState(false);
 
     const handleLogin = async () => {
         try {
@@ -26,10 +27,15 @@ const Login = () => {
                 { withCredentials: true }
             );
             dispatch(addUser(res.data));
+            setToast(true)
+            setTimeout(() => {
+                setToast(false)
+            }, 6000)
             return navigate("/");
         } catch (err) {
-            console.log(err)
-            setError(err?.response?.data || "Something went wrong");
+            if (err.status === 404) {
+                setError(err?.response?.data);
+            }
         }
     };
 
@@ -41,6 +47,7 @@ const Login = () => {
                 { withCredentials: true }
             );
             dispatch(addUser(res.data.data));
+
             return navigate("/profile");
         } catch (err) {
             setError(err?.response?.data || "Something went wrong");
@@ -105,6 +112,12 @@ const Login = () => {
                         </label>
                     </div>
                     <p className="text-red-500">{error}</p>
+                    {toast && <div className="toast toast-top toast-center">
+
+                        <div className="alert alert-success">
+                            <span>Profile Updated Successfully.</span>
+                        </div>
+                    </div>}
                     <div className="card-actions justify-center m-2">
                         <button
                             className="btn btn-primary"

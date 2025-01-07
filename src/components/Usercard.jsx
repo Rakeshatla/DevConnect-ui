@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Usercard = ({ user }) => {
-    const { _id, firstName, lastName, age, photoUrl, gender, about } = user
+    const { firstName, lastName, age, photoUrl, gender, about } = user
     return (
         <div className="card bg-base-300 w-96 shadow-xl flex justify-center">
             <figure>

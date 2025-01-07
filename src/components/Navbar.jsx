@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import { removeUserFromFeed } from "../utils/feedSlice";
 
 const NavBar = () => {
     const user = useSelector((store) => store.user);
@@ -13,6 +14,7 @@ const NavBar = () => {
         try {
             await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
             dispatch(removeUser());
+            dispatch(removeUserFromFeed())
             return navigate("/login");
         } catch (err) {
             // Error logic maybe redirect to error page
@@ -27,7 +29,7 @@ const NavBar = () => {
                     👩‍💻 DevTinder
                 </Link>
             </div>
-            {user && (
+            {user &&
                 <div className="flex-none gap-2">
                     <div className="form-control">Welcome, {user.firstName}</div>
                     <div className="dropdown dropdown-end mx-5 flex">
@@ -63,7 +65,7 @@ const NavBar = () => {
                         </ul>
                     </div>
                 </div>
-            )}
+            }
         </div>
     );
 };
