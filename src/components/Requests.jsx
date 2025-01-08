@@ -12,8 +12,8 @@ const Requests = () => {
         try {
             // console.log(requests)
             const res = await axios.post(BASE_URL + "/request/review/" + status + "/" + _id, {}, { withCredentials: true })
+            // console.log(res)
             dispatch(removeRequest(_id));
-
         }
         catch (err) {
             console.error(err)
@@ -23,8 +23,9 @@ const Requests = () => {
     const fetchrequests = async () => {
         try {
             const res = await axios.get(BASE_URL + "/user/requests", { withCredentials: true })
-            // console.log(res?.data[0])
-            dispatch(addRequests(res?.data?.data))
+            // console.log(res?.data.connections)
+            dispatch(addRequests(res?.data?.connections))
+
         }
         catch (err) {
             console.log(err)
@@ -43,7 +44,7 @@ const Requests = () => {
 
             {requests.map((connection) => {
                 const { _id, firstName, lastName, photoUrl, age, gender, about } =
-                    connection;
+                    connection.formUserId;
 
                 return (
                     <div
@@ -67,13 +68,13 @@ const Requests = () => {
                         <div>
                             <button
                                 className="btn btn-primary mx-2"
-                                onClick={() => reviewRequest("rejected", requests._id)}
+                                onClick={() => reviewRequest("rejected", connection._id)}
                             >
                                 Reject
                             </button>
                             <button
                                 className="btn btn-secondary mx-2"
-                                onClick={() => reviewRequest("accepted", requests._id)}
+                                onClick={() => reviewRequest("accepted", connection._id)}
                             >
                                 Accept
                             </button>

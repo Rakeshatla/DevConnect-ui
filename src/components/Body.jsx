@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import NavBar from "../components/Navbar";
 // import Footer from "./Footer";
 import axios from "axios";
