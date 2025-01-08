@@ -11,16 +11,17 @@ const EditProfile = ({ user }) => {
     // const [password, setPassword] = useState("Rakesh@123");
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
-    const [age, setAge] = useState(user.age);
+    const [age, setAge] = useState(user.age || "");
     const [showToast, setShowToast] = useState(false);
-    const [about, setAbout] = useState(user.about);
-    const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-    const [gender, setGender] = useState(user.gender);
+    const [about, setAbout] = useState(user.about || "");
+    const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
+    const [gender, setGender] = useState(user.gender || "");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
 
     const updateprofile = async () => {
         try {
+            setError("")
             const res = await axios.patch(
                 BASE_URL + "/profile/edit",
                 {
@@ -29,7 +30,7 @@ const EditProfile = ({ user }) => {
                 },
                 { withCredentials: true }
             );
-            console.log(res)
+            // console.log(res)
             dispatch(addUser(res?.data?.data));
             setShowToast(true)
             setTimeout(() => {
