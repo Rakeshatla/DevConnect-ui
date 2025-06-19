@@ -1,4 +1,4 @@
-# DevTinder Frontend
+# DevSphere Frontend
 DevTinder is a platform designed to connect developers and help them build professional networks. It provides an interactive user experience, allowing developers to discover others, express interest, and manage connections efficiently.
 
 ### Features
