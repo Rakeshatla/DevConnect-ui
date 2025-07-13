@@ -17,6 +17,7 @@ const EditProfile = ({ user }) => {
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
     const [gender, setGender] = useState(user.gender || "");
     const [error, setError] = useState("");
+    const [skills, setSkills] = useState("");
     const dispatch = useDispatch();
 
     const updateprofile = async () => {
@@ -26,7 +27,7 @@ const EditProfile = ({ user }) => {
                 BASE_URL + "/profile/edit",
                 {
                     firstName,
-                    lastName, age, gender, about, photoUrl
+                    lastName, age, gender, about, photoUrl, skills
                 },
                 { withCredentials: true }
             );
@@ -98,6 +99,17 @@ const EditProfile = ({ user }) => {
                                 </label>
                                 <label className="form-control w-full max-w-xs my-2">
                                     <div className="label">
+                                        <span className="label-text">skills</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={skills}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setSkills(e.target.value)}
+                                    />
+                                </label>
+                                <label className="form-control w-full max-w-xs my-2">
+                                    <div className="label">
                                         <span className="label-text">About</span>
                                     </div>
                                     <input
@@ -143,7 +155,7 @@ const EditProfile = ({ user }) => {
                         <div className="card-actions justify-center m-2">
                             <p>{error}</p>
                             <button
-                                className="btn btn-primary" onClick={updateprofile}
+                                className="btn btn-primary " onClick={updateprofile}
                             >
                                 Save
                             </button>
@@ -153,7 +165,7 @@ const EditProfile = ({ user }) => {
                 </div>
             </div>
             <div className='mx-10'>
-                <Usercard user={{ firstName, lastName, age, photoUrl, gender, about }} />
+                <Usercard user={{ firstName, lastName, age, photoUrl, gender, about, skills }} />
             </div>
         </div>
     );
