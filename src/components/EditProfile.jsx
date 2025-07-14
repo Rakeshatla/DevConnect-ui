@@ -18,31 +18,40 @@ const EditProfile = ({ user }) => {
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
     const [gender, setGender] = useState(user.gender || "");
     const [error, setError] = useState("");
-    const [skills, setSkills] = useState(user.skills || []);
+    const [skillsInput, setSkillsInput] = useState((user.skills || []).join(', '));
+
     const dispatch = useDispatch();
 
     const updateprofile = async () => {
         try {
-            setError("")
+            setError("");
+            const skillsArray = skillsInput.split(',').map(skill => skill.trim()).filter(Boolean);
+
             const res = await axios.patch(
                 BASE_URL + "/profile/edit",
                 {
                     firstName,
-                    lastName, age, gender, about, photoUrl, skills
+                    lastName,
+                    age,
+                    gender,
+                    about,
+                    photoUrl,
+                    skills: skillsArray,
                 },
                 { withCredentials: true }
             );
-            // console.log(res)
+
             dispatch(addUser(res?.data?.data));
-            setShowToast(true)
+            setShowToast(true);
             setTimeout(() => {
-                setShowToast(false)
-            }, 3000)
+                setShowToast(false);
+            }, 3000);
         } catch (err) {
-            console.log(err)
+            console.log(err);
             setError(err?.response?.data || "Something went wrong");
         }
     };
+
 
     return (
         <div className='flex justify-center my-10 mx-10 p-7'>
@@ -100,14 +109,16 @@ const EditProfile = ({ user }) => {
                                 </label>
                                 <label className="form-control w-full max-w-xs my-2">
                                     <div className="label">
-                                        <span className="label-text">skills</span>
+                                        <span className="label-text">Skills</span>
                                     </div>
                                     <input
                                         type="text"
-                                        value={skills}
+                                        value={skillsInput}
                                         className="input input-bordered w-full max-w-xs"
-                                        onChange={(e) => setSkills(e.target.value)}
+                                        placeholder="React, Node, Express"
+                                        onChange={(e) => setSkillsInput(e.target.value)}
                                     />
+
                                 </label>
                                 <label className="form-control w-full max-w-xs my-2">
                                     <div className="label">
@@ -166,7 +177,16 @@ const EditProfile = ({ user }) => {
                 </div>
             </div>
             <div className='mx-10'>
-                <Usercard user={{ firstName, lastName, age, photoUrl, gender, about, skills }} />
+                <Usercard user={{
+                    firstName,
+                    lastName,
+                    age,
+                    photoUrl,
+                    gender,
+                    about,
+                    skills: skillsInput.split(',').map(skill => skill.trim()).filter(Boolean),
+                }} />
+
 
             </div>
         </div>
