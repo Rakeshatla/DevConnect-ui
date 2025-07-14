@@ -36,7 +36,7 @@ const Requests = () => {
     }, [])
     if (!requests) return;
 
-    if (requests.length === 0) return <h1> No requests Found</h1>;
+    if (requests.length === 0) return <h1 className='font-bold text-2xl text-center my-6'> No requests Found'🥲</h1>;
 
     return (
         <div className="text-center my-10">

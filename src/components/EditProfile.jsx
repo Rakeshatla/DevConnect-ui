@@ -5,6 +5,7 @@ import axios from 'axios'
 import { BASE_URL } from '../utils/constants';
 import { addUser } from '../utils/userSlice';
 import Usercard from './Usercard';
+import Userinfo from './Userinfo';
 
 const EditProfile = ({ user }) => {
     // const user = useSelector(store => store.user)
@@ -17,7 +18,7 @@ const EditProfile = ({ user }) => {
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
     const [gender, setGender] = useState(user.gender || "");
     const [error, setError] = useState("");
-    const [skills, setSkills] = useState("");
+    const [skills, setSkills] = useState(user.skills || []);
     const dispatch = useDispatch();
 
     const updateprofile = async () => {
@@ -166,6 +167,7 @@ const EditProfile = ({ user }) => {
             </div>
             <div className='mx-10'>
                 <Usercard user={{ firstName, lastName, age, photoUrl, gender, about, skills }} />
+
             </div>
         </div>
     );

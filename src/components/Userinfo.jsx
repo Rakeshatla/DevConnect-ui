@@ -14,7 +14,7 @@ const Userinfo = () => {
                 const res = await axios.get(`${BASE_URL}/profile/view/${id}`, {
                     withCredentials: true,
                 });
-                setUser(res.data); // ✅ store data in state
+                setUser(res?.data); // ✅ store data in state
             } catch (err) {
                 console.error(err);
             }
@@ -26,7 +26,7 @@ const Userinfo = () => {
     if (!user) return <div className="text-center py-10">Loading user data...</div>;
 
     const {
-        firstName, lastName, age, gender, photoUrl, about, skills,
+        firstName, email, lastName, age, gender, photoUrl, about, skills,
         developerType, availability, location, github, linkedin
     } = user;
 
@@ -45,6 +45,7 @@ const Userinfo = () => {
                     <h1 className="text-2xl font-bold">{fullName}</h1>
                     <p className="text-gray-500">{age} • {gender}</p>
                     <p className="mt-2 text-gray-600 italic">{about}</p>
+                    <p className="mt-2 text-gray-600 italic">{email}</p>
                 </div>
             </div>
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
-import { removeUserFromFeed } from "../utils/feedSlice";
+import { removeFeed } from "../utils/feedSlice";
 import { removeConnection } from "../utils/connectionSlice";
 
 const NavBar = () => {
@@ -15,7 +15,7 @@ const NavBar = () => {
         try {
             await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
             dispatch(removeUser());
-            dispatch(removeUserFromFeed())
+            dispatch(removeFeed())
             dispatch(removeConnection())
             return navigate("/login");
         } catch (err) {
