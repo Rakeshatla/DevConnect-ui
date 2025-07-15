@@ -35,7 +35,7 @@ const Body = () => {
     return (
         <div>
             <NavBar />
-            {!userData && <p className="flex justify-center my-3 font-extrabold h-3">Welcome to DevTinder❤️</p>}
+            {!userData && <p className="flex justify-center my-3 font-extrabold h-3">Welcome to DevConnect❤️</p>}
             <Outlet />
 
         </div>
