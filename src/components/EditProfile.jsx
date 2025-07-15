@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
-import { useDispatch, } from 'react-redux';
+import { useDispatch, useSelector, } from 'react-redux';
 import axios from 'axios'
 import { BASE_URL } from '../utils/constants';
 import { addUser } from '../utils/userSlice';
 import Usercard from './Usercard';
-import Userinfo from './Userinfo';
+
 
 const EditProfile = ({ user }) => {
     // const user = useSelector(store => store.user)
@@ -19,7 +19,12 @@ const EditProfile = ({ user }) => {
     const [gender, setGender] = useState(user.gender || "");
     const [error, setError] = useState("");
     const [skillsInput, setSkillsInput] = useState((user.skills || []).join(', '));
-
+    const [developerType, setDeveloperType] = useState(user.developerType || "");
+    const [availability, setAvailability] = useState(user.availability || "");
+    const [location, setLocation] = useState(user.location || "");
+    const [lookingFor, setLookingFor] = useState(user.lookingFor || "");
+    const [github, setGithub] = useState(user.github || "");
+    const [linkedin, setLinkedin] = useState(user.linkedin || "");
     const dispatch = useDispatch();
 
     const updateprofile = async () => {
@@ -37,6 +42,12 @@ const EditProfile = ({ user }) => {
                     about,
                     photoUrl,
                     skills: skillsArray,
+                    developerType,
+                    availability,
+                    location,
+                    lookingFor,
+                    github,
+                    linkedin,
                 },
                 { withCredentials: true }
             );
@@ -51,8 +62,8 @@ const EditProfile = ({ user }) => {
             setError(err?.response?.data || "Something went wrong");
         }
     };
-
-
+    const user1 = useSelector(store => store.user)
+    const _id = user1._id
     return (
         <div className='flex justify-center my-10 mx-10 p-7'>
             <div className="flex justify-center  ">
@@ -142,20 +153,73 @@ const EditProfile = ({ user }) => {
                                         onChange={(e) => setPhotoUrl(e.target.value)}
                                     />
                                 </label>
+                                <label className="form-control w-full max-w-xs my-2">
+                                    <div className="label">
+                                        <span className="label-text">Developer Type</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={developerType}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setDeveloperType(e.target.value)}
+                                    />
+                                </label>
+                                <label className="form-control w-full max-w-xs my-2">
+                                    <div className="label">
+                                        <span className="label-text">Availability</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={availability}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setAvailability(e.target.value)}
+                                    />
+                                </label>
+                                <label>
+                                    <div className="label">
+                                        <span className="label-text">Location</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={location}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setLocation(e.target.value)}
+                                    />
+                                </label>
+                                <label className="form-control w-full max-w-xs my-2">
+                                    <div className="label">
+                                        <span className="label-text">Looking For</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={lookingFor}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setLookingFor(e.target.value)}
+                                    />
+                                </label>
+                                <label className="form-control w-full max-w-xs my-2">
+                                    <div className="label">
+                                        <span className="label-text">GitHub</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={github}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setGithub(e.target.value)}
+                                    />
+                                </label>
+                                <label className="form-control w-full max-w-xs my-2">
+                                    <div className="label">
+                                        <span className="label-text">LinkedIn</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={linkedin}
+                                        className="input input-bordered w-full max-w-xs"
+                                        onChange={(e) => setLinkedin(e.target.value)}
+                                    />
+                                </label>
                             </>
-
-                            {/*                         
-                        <label className="form-control w-full max-w-xs my-2">
-                            <div className="label">
-                                <span className="label-text">Password</span>
-                            </div>
-                            <input
-                                type="password"
-                                value={password}
-                                className="input input-bordered w-full max-w-xs"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </label> */}
                         </div>
                         <p className="text-red-500">{error}</p>
                         {showToast && <div className="toast toast-top toast-center">
@@ -185,6 +249,8 @@ const EditProfile = ({ user }) => {
                     gender,
                     about,
                     skills: skillsInput.split(',').map(skill => skill.trim()).filter(Boolean),
+                    _id
+
                 }} />
 
 

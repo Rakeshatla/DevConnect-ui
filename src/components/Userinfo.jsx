@@ -33,7 +33,7 @@ const Userinfo = () => {
     const fullName = `${firstName}${lastName ? ` ${lastName}` : ''}`;
 
     return (
-        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
+        <div className="max-w-4xl mx-auto shadow-md rounded-lg p-6 mt-10 bg-base-200">
             {/* Top: Photo & Name */}
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                 <img

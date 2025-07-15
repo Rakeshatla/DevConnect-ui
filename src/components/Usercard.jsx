@@ -12,7 +12,7 @@ const Usercard = ({ user }) => {
     const handleinfo = (_id) => {
         return navigate('/userInfo/' + _id);
     }
-
+    // console.log(user)
     const {
         _id, firstName, lastName, age, photoUrl,
         gender, about, skills
