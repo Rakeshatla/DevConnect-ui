@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addConnection } from '../utils/connectionSlice'
 import { Link } from 'react-router-dom'
+import ShimmerCard from './ShimmerCard'
 
 const Connections = () => {
     const conn = useSelector(store => store.connection)
@@ -21,7 +22,7 @@ const Connections = () => {
     useEffect(() => {
         fetchconnections()
     }, [])
-    if (!conn) return;
+    if (!conn) return <ShimmerCard />;
 
     if (conn.length === 0) return <h1 className='flex text-center justify-center text-2xl font-extrabold'> No Connections Found</h1>;
 

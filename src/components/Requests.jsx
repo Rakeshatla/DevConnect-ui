@@ -3,6 +3,7 @@ import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addRequests, removeRequest } from '../utils/requestSlice'
+import ShimmerCard from './ShimmerCard'
 
 const Requests = () => {
     const requests = useSelector(store => store.request)
@@ -34,7 +35,8 @@ const Requests = () => {
     useEffect(() => {
         fetchrequests()
     }, [])
-    if (!requests) return;
+    if (!requests)
+        return <ShimmerCard />;
 
     if (requests.length === 0) return <h1 className='font-bold text-2xl text-center my-6'> No requests Found'🥲</h1>;
 
