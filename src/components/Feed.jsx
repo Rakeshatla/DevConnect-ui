@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BASE_URL } from '../utils/constants';
 import axios from 'axios'
 import { addFeed } from '../utils/feedSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Feed = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const feed = useSelector(store => store.feed)
     const fetchfeed = async () => {
         try {
@@ -16,7 +18,11 @@ const Feed = () => {
             // console.log(res)
         }
         catch (err) {
-            console.log(err)
+            if (err.response?.status === 404) {
+                setTimeout(() => {
+                    navigate('/login')
+                }, 1000)
+            }
         }
     }
     useEffect(() => {

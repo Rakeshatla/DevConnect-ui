@@ -3,12 +3,13 @@ import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addConnection } from '../utils/connectionSlice'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShimmerCard from './ShimmerCard'
 
 const Connections = () => {
     const conn = useSelector(store => store.connection)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const fetchconnections = async () => {
         try {
             const res = await axios.get(BASE_URL + "/user/connections", { withCredentials: true })
@@ -16,7 +17,12 @@ const Connections = () => {
             dispatch(addConnection(res?.data?.data))
         }
         catch (err) {
-            console.log(err)
+            if (err.status === 404) {
+                // console.error(err?.response?.data || "Connections not found");
+                setTimeout(() => {
+                    navigate('/login')
+                }, 2000)
+            }
         }
     }
     useEffect(() => {

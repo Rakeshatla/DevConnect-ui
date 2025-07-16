@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 import { removeFeed } from "../utils/feedSlice";
 import { removeConnection } from "../utils/connectionSlice";
+import { removeSlice } from "../utils/requestSlice";
 
 const NavBar = () => {
     const user = useSelector((store) => store.user);
@@ -17,10 +18,13 @@ const NavBar = () => {
             dispatch(removeUser());
             dispatch(removeFeed())
             dispatch(removeConnection())
+            dispatch(removeSlice());
             return navigate("/login");
         } catch (err) {
             // Error logic maybe redirect to error page
-            console.log(err)
+            if (err.status == 404) {
+                navigate("/login")
+            }
         }
     };
 

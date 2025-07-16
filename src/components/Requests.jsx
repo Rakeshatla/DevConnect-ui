@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addRequests, removeRequest } from '../utils/requestSlice'
 import ShimmerCard from './ShimmerCard'
+import { useNavigate } from 'react-router-dom'
 
 const Requests = () => {
     const requests = useSelector(store => store.request)
     const dispatch = useDispatch();
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const reviewRequest = async (status, _id) => {
         try {
@@ -29,7 +32,14 @@ const Requests = () => {
 
         }
         catch (err) {
-            console.log(err)
+            if (err.response?.status === 404) {
+                // console.error(err?.response?.data || "Requests not found");
+                setError(err?.response?.data || "Requests not found");
+                setTimeout(() => {
+                    navigate('/login')
+                }, 2000)
+            }
+
         }
     }
     useEffect(() => {
@@ -43,6 +53,13 @@ const Requests = () => {
     return (
         <div className="text-center my-10">
             <h1 className="text-bold text-black text-3xl">Requests</h1>
+            {
+                error && (
+                    <div className="text-red-500 bg-red-100 p-2 rounded mt-2 text-center">
+                        {error + 'plz login again'}
+                    </div>
+                )
+            }
 
             {requests.map((connection) => {
                 const { _id, firstName, lastName, photoUrl, age, gender, about } =
