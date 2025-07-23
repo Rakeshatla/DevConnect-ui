@@ -1,5 +1,5 @@
-# DevSphere Frontend
-DevTinder is a platform designed to connect developers and help them build professional networks. It provides an interactive user experience, allowing developers to discover others, express interest, and manage connections efficiently.
+# DevConnect Frontend
+DevConnect is a platform designed to connect developers and help them build professional networks. It provides an interactive user experience, allowing developers to discover others, express interest, and manage connections efficiently.
 
 ### Features
 User Feed: \
@@ -8,7 +8,7 @@ Connection Requests: \
 Connections View: 
 
 ### Frontend Description
-The frontend of DevTinder is built using modern web technologies to deliver a seamless and intuitive user experience:\
+The frontend of DevConnect is built using modern web technologies to deliver a seamless and intuitive user experience:\
 -**Framework:** React (or any preferred frontend framework).\
 -**Responsive Design:** Ensures compatibility across devices.\
 -**Interactive UI**: Includes features like buttons for interest, navigation to view connections, and managing requests.\
