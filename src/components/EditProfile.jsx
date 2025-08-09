@@ -31,7 +31,6 @@ const EditProfile = ({ user }) => {
         try {
             setError("");
             const skillsArray = skillsInput.split(',').map(skill => skill.trim()).filter(Boolean);
-
             const res = await axios.patch(
                 BASE_URL + "/profile/edit",
                 {
